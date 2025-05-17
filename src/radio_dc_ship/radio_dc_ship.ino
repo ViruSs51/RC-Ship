@@ -106,7 +106,6 @@ void loop() {
     //Serial.print(j2x);
     //Serial.print(" - ");
     //Serial.println(j2y);
-  } else {
   }
 
   control();

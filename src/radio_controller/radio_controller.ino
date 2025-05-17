@@ -74,9 +74,9 @@ void loop() {
   }
 
   if (j2x >= center_j2x) {
-    j2x = map(j2x, center_j2x, 1023, 90, 180);
+    j2x = map(j2x, center_j2x, 1023, 90, 120);
   } else {
-    j2x = map(j2x, 0, center_j2x, 0, 90);
+    j2x = map(j2x, 0, center_j2x, 60, 90);
   }
 
   if (j1x >= center_j1x) {
