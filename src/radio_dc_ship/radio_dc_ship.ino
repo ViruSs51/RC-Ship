@@ -14,7 +14,7 @@
 #define SERVO A0
 
 RF24 radio(CE_PIN, CSN_PIN);
-const byte address[6] = "hghq}";
+const byte address[6] = "hghq{";
 
 Servo servo;
 
@@ -26,7 +26,7 @@ void initRadio() {
   radio.setAddressWidth(5); 
   radio.openReadingPipe(0, address);
   radio.setPALevel(RF24_PA_MAX);
-  radio.setDataRate(RF24_1MBPS);
+  radio.setDataRate(RF24_250KBPS);
   radio.setChannel(108);
   radio.setRetries(5, 15); 
   radio.startListening();
@@ -100,6 +100,13 @@ void loop() {
 
     sscanf(payload, "%s ,%d,%d,%d", command, &j1x, &j2x, &j2y);
     command[8] = '\0';
+
+    //Serial.print(j1x);
+    //Serial.print(" - ");
+    //Serial.print(j2x);
+    //Serial.print(" - ");
+    //Serial.println(j2y);
+  } else {
   }
 
   control();

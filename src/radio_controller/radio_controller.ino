@@ -13,13 +13,13 @@
 
 #define CE_PIN 9
 #define CSN_PIN 10
-#define J1Y A1
-#define J1X A0
-#define J2Y A2
-#define J2X A3
+#define J1Y A2
+#define J1X A3
+#define J2Y A1
+#define J2X A0
 
 RF24 radio(CE_PIN, CSN_PIN);
-const byte address[6] = "hghq}";
+const byte address[6] = "hghq{";
 
 int j1x, j1y, center_j1x, center_j1y;
 int j2x, j2y, center_j2x, center_j2y;
@@ -31,7 +31,7 @@ void initRadio() {
   radio.setAddressWidth(5); 
   radio.openWritingPipe(address);
   radio.setPALevel(RF24_PA_MAX);
-  radio.setDataRate(RF24_1MBPS);
+  radio.setDataRate(RF24_250KBPS);
   radio.setChannel(108);
   radio.setRetries(5, 15); 
   radio.stopListening();
@@ -61,7 +61,7 @@ void setup() {
   readJoistick(center_j2x, center_j2y, J2X, J2Y);
 }
 
-void loop() {
+void loop() {  
   readJoistick(j1x, j1y, J1X, J1Y);
   readJoistick(j2x, j2y, J2X, J2Y);
 
