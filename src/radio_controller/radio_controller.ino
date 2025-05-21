@@ -67,10 +67,10 @@ void loop() {
 
   if (j2y >= center_j2y) {
     j2y = map(j2y, center_j2y, 1023, 0, 255);
-    command = "00001111";
+    command = "11110000";
   } else {
     j2y = map(j2y, 0, center_j2y, 255, 0);
-    command = "11110000";
+    command = "00001111";
   }
 
   if (j2x >= center_j2x) {
@@ -105,12 +105,6 @@ void loop() {
   } else {
     Serial.print("Transmission failed: ");
   }
-
-  Serial.print(j1x);
-  Serial.print(" : ");
-  Serial.print(j1y);
-  Serial.print(" - ");
-  Serial.print(j2x);
-  Serial.print(" : ");
-  Serial.println(j2y);
+  
+  delay(20);
 }

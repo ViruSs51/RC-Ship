@@ -12,6 +12,7 @@
 #define ENA 6 
 #define ENB 5
 #define SERVO A0
+#define BUZER 8
 
 RF24 radio(CE_PIN, CSN_PIN);
 const byte address[6] = "hghq{";
@@ -20,6 +21,8 @@ Servo servo;
 
 int j1x, j1y, j2x, j2y;
 char command[8];
+
+bool connected = false;
 
 void initRadio() {
   radio.begin();
@@ -84,6 +87,7 @@ void control() {
 
 void setup() {
   Serial.begin(9600);
+  pinMode(BUZER, OUTPUT);
   servo.attach(SERVO);
 
   initRadio();
@@ -92,6 +96,18 @@ void setup() {
 
 void loop() {
   if (radio.available()) {
+    if (!connected) {
+      tone(BUZER, 1000);
+      delay(800);
+      noTone(BUZER);
+      delay(800);
+      tone(BUZER, 1000);
+      delay(800);
+      noTone(BUZER);
+
+      connected = true;
+    }
+
     char payload[50];
     radio.read(&payload, sizeof(payload));
 
@@ -101,12 +117,22 @@ void loop() {
     sscanf(payload, "%s ,%d,%d,%d", command, &j1x, &j2x, &j2y);
     command[8] = '\0';
 
-    //Serial.print(j1x);
-    //Serial.print(" - ");
-    //Serial.print(j2x);
-    //Serial.print(" - ");
-    //Serial.println(j2y);
+  } else if (connected) {
+    tone(BUZER, 1000);
+    delay(800);
+    noTone(BUZER);
+    delay(800);
+    tone(BUZER, 1000);
+    delay(800);
+    noTone(BUZER);
+    delay(800);
+    tone(BUZER, 1000);
+    delay(800);
+    noTone(BUZER);
+
+    connected = false;
   }
 
   control();
+  delay(20);
 }
